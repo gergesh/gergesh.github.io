@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <script src="punycode.js" type="text/javascript"></script>
+    <script>
+        var poem;
+        var url = document.referrer;
+        if (!url) {
+            var link = '<a href="http://ben.hasha.men">ben.hasha.men</a>'
+            document.write("Try a subdomain, " + link + " is a good choice.");
+        } else {
+            var name = url.slice(7, url.indexOf('.'));
+            console.log("His name is " + name);
+            console.log("url: " + url);
+            var params = new URL(url);
+            var place = params.searchParams.get("place");
+
+            if (name.startsWith('xn--')) {
+                // HEBREW
+                name = decode(name.slice(4, name.length));
+                poem = `
+                <p dir="rtl">
+                !name! השמן.
+                <br> ב!place! יש לו בן.
+                <br> איך קוראים לבן?
+                <br> !name! השמן.
+                </p>
+                `
+                if (place === null) place = 'בטן';
+            } else {
+                // ENGLISH
+                poem = `
+                <p>
+                !name! hashamen.
+                <br> ba!place! yesh lo ben.
+                <br> eich korim laben?
+                <br> !name! hashamen.
+                </p>
+                `
+                if (place === null) place = 'beten';
+            }
+            document.write(poem.replace(/!name!/g, name).replace(/!place!/g, place));
+            var image = params.searchParams.get("fatty");
+            if (image !== null) {
+                document.write("<img src=" + image + "></img>");
+            }
+        }
+    </script>
+</body>
+
+</html>
