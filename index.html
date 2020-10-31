@@ -20,6 +20,7 @@
             content.style.whiteSpace = 'pre';
             if (name === undefined) {
                 content.innerHTML = 'Try a subdomain, <a href="https://ben.hasha.men">ben.hasha.men</a> is a good choice.';
+                document.title = 'hasha.men';
             } else {
                 const params = new URL(document.URL);
                 if (name.startsWith('xn--')) {
@@ -37,9 +38,10 @@ ba${place} yesh lo ben.
 eich korim laben?
 ${name} hashamen.`;
                 }
+
+                document.title = content.textContent.slice(0 ,content.textContent.indexOf('\n'));
             }
             document.body.appendChild(content);
-            document.title = content.textContent.slice(0 ,content.textContent.indexOf('\n'));
         </script>
         <noscript>
             <p>
